@@ -8,14 +8,14 @@ const RegisterPage = () => {
         // 전체 컨테이너
         <Container>
             <Div backgroundColor="#f5f5f5">
-                <Div width="30%" height="80vh" flexDirection="column">
+                <Div width="635px" height="728px" flexDirection="column">
                     <Div justifyContent="start" height="10%" >
                         <Div width="90%" justifyContent="start" margin=" 0 0 0 14px" >
                             <Img src={Logo} />
                         </Div>
                     </Div>
                     <Div height="90%">
-                        <Div width="57%" flexDirection="column">
+                        <Div width="360px" flexDirection="column">
                             <Div height="10%">
                                 <Div justifyContent="start" fontSize="20px">회원가입</Div>
                             </Div>
