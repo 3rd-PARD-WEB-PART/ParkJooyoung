@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Logo from '../../Assets/Logo.png'
+import { Link } from 'react-router-dom'
 
 const RegisterPage = () => {
 
@@ -62,7 +63,9 @@ const RegisterPage = () => {
                             </Div>
                             <Div height="10%" alignItems="start">
                                 <Div height="50px" justifyContent="start">
-                                    <Input type='button' value='회원가입하기' backgroundColor="#35C5F0" color="white" fontSize="17px" fontWeight="bold" />
+                                    <LoginLink to="/profile">
+                                        <Input type='button' value='회원가입하기' backgroundColor="#35C5F0" color="white" fontSize="17px" fontWeight="bold" ></Input>
+                                    </LoginLink>
                                 </Div>
                             </Div>
                             <Div height="10%" >
@@ -130,3 +133,9 @@ const Img = styled.img`
 height: 31px;
 `
 
+const LoginLink = styled(Link)`
+width: ${(props) => props.width || '100%'};
+height: ${(props) => props.height || '100%'};
+
+
+`

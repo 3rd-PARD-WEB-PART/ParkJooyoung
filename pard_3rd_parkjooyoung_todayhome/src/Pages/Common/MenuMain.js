@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const MenuMain = (props) => {
 
@@ -11,10 +12,18 @@ const MenuMain = (props) => {
         <Container>
             <Div flexDirection="column" borderBottom="1px solid #dbdbdb" >
                 <Div width="380px" height="23px" justifyContent="space-between" >
-                    <AutoWidthDiv ><A selected={selectedMenu === "Profile"}>프로필</A></AutoWidthDiv>
-                    <AutoWidthDiv selected={selectedMenu === "MyShopping"}><A>나의 쇼핑</A></AutoWidthDiv>
-                    <AutoWidthDiv selected={selectedMenu === "MyReview"}><A>나의 리뷰</A></AutoWidthDiv>
-                    <AutoWidthDiv selected={selectedMenu === "Setting"}><A>설정</A></AutoWidthDiv>
+                    <AutoWidthDiv >
+                        <Link to='/profile' style={{ textDecoration: "none" }}>
+                            <A selected={selectedMenu === "Profile"}>프로필</A>
+                        </Link>
+                    </AutoWidthDiv>
+                    <AutoWidthDiv ><A selected={selectedMenu === "MyShopping"}>나의 쇼핑</A></AutoWidthDiv>
+                    <AutoWidthDiv ><A selected={selectedMenu === "MyReview"}>나의 리뷰</A></AutoWidthDiv>
+                    <AutoWidthDiv >
+                        <Link to='/edit' style={{ textDecoration: "none" }}>
+                            <A selected={selectedMenu === "Setting"}>설정</A>
+                        </Link>
+                    </AutoWidthDiv>
                 </Div>
             </Div>
         </Container>
@@ -73,4 +82,3 @@ font-weight: ${(props) => props.fontWeight || "bold"};
 color: ${(props) => props.selected ? "#35C5F0" : "black"};
 text-decoration: none;
 `
-

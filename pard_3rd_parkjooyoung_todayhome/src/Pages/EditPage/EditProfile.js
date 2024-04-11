@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Profile from '../../Assets/Profile_Face.png'
+import { Link } from 'react-router-dom'
 
 const EditProfile = () => {
 
@@ -97,8 +98,10 @@ const EditProfile = () => {
                         </Div>
                     </Div>
                     <Div justifyContent="end" height="5%">
-                        <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" color='white'>
-                            수정하기
+                        <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" >
+                            <Link to="/profile" style={{ textDecoration: "none", color: 'white' }}>
+                                수정하기
+                            </Link>
                         </Button>
                     </Div>
 
