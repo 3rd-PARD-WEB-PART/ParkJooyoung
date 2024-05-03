@@ -1,8 +1,32 @@
 import styled from 'styled-components'
 import Profile from '../../Assets/Profile_Face.png'
-import { Link } from 'react-router-dom'
+import { useDataHandler } from '../Hooks/useDataHandler'
+import { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { userInfoRecoil } from '../Atom/Atom'
 
 const EditProfile = () => {
+
+    const [userInfo, setUserInfo] = useRecoilState(userInfoRecoil)
+    const [curUserInfo, setCurUserInfo] = useState(userInfo)
+    console.log(curUserInfo)
+
+    const { updateHandler } = useDataHandler(curUserInfo)
+
+    const userInputHandler = (e) => {
+        setCurUserInfo({
+            ...curUserInfo,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        setCurUserInfo({
+            ...curUserInfo,
+            profileImage: URL.createObjectURL(selectedFile),
+        });
+    }
 
     return (
         // 전체 컨테이너
@@ -20,9 +44,7 @@ const EditProfile = () => {
                         </Div>
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start" height="40px">
-                                <Input width="190px" placeholder='webpart'></Input>
-                                <AutoWidthDiv color='#DBDBDB'> @ </AutoWidthDiv>
-                                <Input width="190px" placeholder='pard.com'></Input>
+                                <Input width="400px" name='email' value={curUserInfo.email} onChange={userInputHandler}></Input>
                             </Div>
                             <Div justifyContent="start" height="17px" margin="10px 0 0 0">
                                 <AutoWidthDiv fontSize="13px" fontWeight="bold" color='#9e9e9e'>이메일을 변경하시려면 운영자에게 이메일을 보내주세요.</AutoWidthDiv>
@@ -36,7 +58,7 @@ const EditProfile = () => {
                         </Div>
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start" height="40px">
-                                <Input width="400px" placeholder='박우찰' ></Input>
+                                <Input width="400px" name='nickname' value={curUserInfo.nickname} onChange={userInputHandler} ></Input>
                             </Div>
                         </Div>
                     </Div>
@@ -46,7 +68,7 @@ const EditProfile = () => {
                         </Div>
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start" height="40px">
-                                <Input width="400px" placeholder='we-pard.com' ></Input>
+                                <Input width="400px" name='homepage' value={curUserInfo.homepage} onChange={userInputHandler} ></Input>
                             </Div>
                         </Div>
                     </Div>
@@ -57,11 +79,11 @@ const EditProfile = () => {
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start" height="40px">
                                 <Label width="60px">
-                                    <Radio type='radio' name='gender' width="22px" height="22px" ></Radio>
+                                    <Radio type='radio' name='gender' value="Male" checked={curUserInfo.gender == 'Male'} width="22px" height="22px" onClick={userInputHandler} ></Radio>
                                     <AutoWidthDiv>남성</AutoWidthDiv>
                                 </Label>
                                 <Label width="60px">
-                                    <Radio type='radio' name='gender' checked="checked" width="22px" height="22px" ></Radio>
+                                    <Radio type='radio' name='gender' value="Female" checked={curUserInfo.gender == 'Female'} width="22px" height="22px" onClick={userInputHandler} ></Radio>
                                     <AutoWidthDiv >여성</AutoWidthDiv>
                                 </Label>
                             </Div>
@@ -73,7 +95,7 @@ const EditProfile = () => {
                         </Div>
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start" height="40px">
-                                <Input width="400px" placeholder='1998.04.07' ></Input>
+                                <Input width="400px" name='date' value={curUserInfo.date} onChange={userInputHandler} ></Input>
                             </Div>
                         </Div>
                     </Div>
@@ -83,7 +105,8 @@ const EditProfile = () => {
                         </Div>
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start">
-                                <Img src={Profile} />
+                                <Label htmlFor='file'><Img src={curUserInfo.profileImage == "" ? Profile : curUserInfo.profileImage} /></Label>
+                                <Input type="file" id='file' accept='image/*' style={{ display: "none" }} onChange={handleFileChange}></Input>
                             </Div>
                         </Div>
                     </Div>
@@ -93,15 +116,13 @@ const EditProfile = () => {
                         </Div>
                         <Div flexDirection="column" width="90%" alignItems="start">
                             <Div justifyContent="start" height="40px">
-                                <Input width="400px" placeholder='치킨 피자 햄버거'></Input>
+                                <Input width="400px" name='introduce' value={curUserInfo.introduce} onChange={userInputHandler}></Input>
                             </Div>
                         </Div>
                     </Div>
                     <Div justifyContent="end" height="5%">
-                        <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" >
-                            <Link to="/profile" style={{ textDecoration: "none", color: 'white' }}>
-                                수정하기
-                            </Link>
+                        <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" style={{ textDecoration: "none", color: 'white' }} onClick={(e) => updateHandler(curUserInfo)}>
+                            수정하기
                         </Button>
                     </Div>
 
@@ -189,7 +210,7 @@ border-radius: 50%;
     }
 `
 const Label = styled.label`
-width: ${(props) => props.width || '100%'};
+width: ${(props) => props.width || '180px'};
 height: ${(props) => props.height || '100%'};
 display: ${(props) => props.display || 'flex'};
 justify-content: ${(props) => props.justifyContent || 'space-between'};

@@ -1,31 +1,91 @@
 import { useState } from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useCheckDeviceWidth } from '../Hooks/useCheckDeviceWidth';
 
 const MenuMain = (props) => {
 
     const [selectedMenu, setSelectedMenu] = useState(props.selectedMenu)
-    console.log(selectedMenu)
+    const device = useCheckDeviceWidth()
 
     return (
         // 전체 컨테이너
         <Container>
-            <Div flexDirection="column" borderBottom="1px solid #dbdbdb" >
-                <Div width="380px" height="23px" justifyContent="space-between" >
-                    <AutoWidthDiv >
-                        <Link to='/profile' style={{ textDecoration: "none" }}>
-                            <A selected={selectedMenu === "Profile"}>프로필</A>
-                        </Link>
-                    </AutoWidthDiv>
-                    <AutoWidthDiv ><A selected={selectedMenu === "MyShopping"}>나의 쇼핑</A></AutoWidthDiv>
-                    <AutoWidthDiv ><A selected={selectedMenu === "MyReview"}>나의 리뷰</A></AutoWidthDiv>
-                    <AutoWidthDiv >
-                        <Link to='/edit' style={{ textDecoration: "none" }}>
-                            <A selected={selectedMenu === "Setting"}>설정</A>
-                        </Link>
-                    </AutoWidthDiv>
-                </Div>
-            </Div>
+            {{
+                mobile: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="55px" >
+                        <Div width="380px" height="23px" justifyContent="space-between" >
+                            <AutoWidthDiv >
+                                <Link to='/profile' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Profile"} fontSize="16px">프로필</A>
+                                </Link>
+                            </AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyShopping"} fontSize="16px">나의 쇼핑</A></AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyReview"} fontSize="16px">나의 리뷰</A></AutoWidthDiv>
+                            <AutoWidthDiv >
+                                <Link to='/edit' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Setting"} fontSize="16px">설정</A>
+                                </Link>
+                            </AutoWidthDiv>
+                        </Div>
+                    </Div>
+                ),
+                tablet: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="65px" >
+                        <Div width="380px" height="23px" justifyContent="space-between" >
+                            <AutoWidthDiv >
+                                <Link to='/profile' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Profile"}>프로필</A>
+                                </Link>
+                            </AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyShopping"}>나의 쇼핑</A></AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyReview"}>나의 리뷰</A></AutoWidthDiv>
+                            <AutoWidthDiv >
+                                <Link to='/edit' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Setting"}>설정</A>
+                                </Link>
+                            </AutoWidthDiv>
+                        </Div>
+                    </Div>
+                ),
+                laptop: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="65px">
+                        <Div width="380px" height="23px" justifyContent="space-between" >
+                            <AutoWidthDiv >
+                                <Link to='/profile' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Profile"}>프로필</A>
+                                </Link>
+                            </AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyShopping"}>나의 쇼핑</A></AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyReview"}>나의 리뷰</A></AutoWidthDiv>
+                            <AutoWidthDiv >
+                                <Link to='/edit' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Setting"}>설정</A>
+                                </Link>
+                            </AutoWidthDiv>
+                        </Div>
+                    </Div>
+                ),
+                desktop: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="65px" >
+                        <Div width="380px" height="23px" justifyContent="space-between" >
+                            <AutoWidthDiv >
+                                <Link to='/profile' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Profile"}>프로필</A>
+                                </Link>
+                            </AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyShopping"}>나의 쇼핑</A></AutoWidthDiv>
+                            <AutoWidthDiv ><A selected={selectedMenu === "MyReview"}>나의 리뷰</A></AutoWidthDiv>
+                            <AutoWidthDiv >
+                                <Link to='/edit' style={{ textDecoration: "none" }}>
+                                    <A selected={selectedMenu === "Setting"}>설정</A>
+                                </Link>
+                            </AutoWidthDiv>
+                        </Div>
+                    </Div>
+                ),
+            }[device]}
+
         </Container>
     )
 }
@@ -38,7 +98,7 @@ export default MenuMain
 const Container = styled.div`
 display: flex;
 width: 100%;
-height: 65px;
+/* height: 65px; */
 justify-content: ${(props) => props.justifyContent || 'center'};
 align-items: ${(props) => props.alignItems || 'center'};
 margin: ${(props) => props.margin || ""};

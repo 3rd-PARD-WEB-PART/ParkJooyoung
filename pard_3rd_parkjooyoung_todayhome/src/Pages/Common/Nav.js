@@ -1,44 +1,134 @@
 import styled from 'styled-components'
 import Title from '../../Assets/Title.png'
 import Search from '../../Assets/Search.png'
+import SearchBlack from '../../Assets/Search_Black.png'
 import Scrap from '../../Assets/Scrap.png'
 import Alarm from '../../Assets/Alarm.png'
 import Cart from '../../Assets/Cart.png'
 import Face from '../../Assets/Profile_Face.png'
 import Arrow from '../../Assets/Arrow_Down.png'
+import Dash from '../../Assets/Dash.png'
+import { useCheckDeviceWidth } from '../Hooks/useCheckDeviceWidth'
 
 const Nav = () => {
 
+    const device = useCheckDeviceWidth()
+
     return (
         // 전체 컨테이너
-        <Container>
-            <Div flexDirection="column" borderBottom="1px solid #dbdbdb">
-                <Div width="1136px" height="43px" >
-                    <Div justifyContent="start" width="10%"><Img src={Title} width="85px" /></Div>
-                    <Div width="23%">
-                        <Div width="30%"><A href=''>커뮤니티</A></Div>
-                        <Div width="30%"><A href=''>쇼핑</A></Div>
-                        <Div width="40%"><A href=''>인테리어/생활</A></Div>
+        <Container>{
+            {
+                mobile: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="60px">
+                        <Div width="89%" height="43px" justifyContent="space-between">
+                            <Div width="30px" justifyContent="start">
+                                <Div><Img src={Dash} width="21.5px" /></Div>
+                            </Div>
+                            <Div width="115px">
+                                <Div width="114px" ><Img src={Title} width="85px" /></Div>
+                            </Div>
+                            <Div width="80px">
+                                <Div width="170px">
+                                    <Div><Img src={SearchBlack} width="18px" /></Div>
+                                    <Div><Img src={Cart} width="23px" /></Div>
+                                </Div>
+                            </Div>
+                        </Div>
                     </Div>
-                    <Div justifyContent="end" width="40%">
-                        <Input width="365px" height="43px" margin="0 25px 0 0" image={Search} padding="0 0 0 55px" placeholder='통합검색' backgroundPosition="18px center" backgroundSize="20px" />
+                ),
+                tablet: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="85px">
+                        <Div width="89%" height="43px" justifyContent="space-between">
+                            <Div width="374px" justifyContent="start">
+                                <Div width="114px" justifyContent="start"><Img src={Title} width="85px" /></Div>
+                                <Div width="260px">
+                                    <Div width="30%"><A href=''>커뮤니티</A></Div>
+                                    <Div width="30%"><A href=''>쇼핑</A></Div>
+                                    <Div width="40%"><A href=''>인테리어/생활</A></Div>
+                                </Div>
+                            </Div>
+                            <Div width="350px">
+                                <Div width="170px">
+                                    <Div><Img src={SearchBlack} width="18px" /></Div>
+                                    <Div><Img src={Scrap} width="18px" /></Div>
+                                    <Div><Img src={Alarm} width="20px" /></Div>
+                                    <Div><Img src={Cart} width="23px" /></Div>
+                                </Div>
+                                <Div width="68px">
+                                    <Img src={Face} width="43px" />
+                                </Div>
+                                <Div width="113px">
+                                    <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" color='white'>
+                                        글쓰기
+                                        <Img src={Arrow} width="12px" margin="0 0 0 8px" />
+                                    </Button>
+                                </Div>
+                            </Div>
+                        </Div>
                     </Div>
-                    <Div width="11%">
-                        <Div><Img src={Scrap} width="18px" /></Div>
-                        <Div><Img src={Alarm} width="20px" /></Div>
-                        <Div><Img src={Cart} width="23px" /></Div>
+                ),
+                laptop: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="85px">
+                        <Div width="89%" height="43px" justifyContent="space-between">
+                            <Div width="374px" justifyContent="start">
+                                <Div width="114px" justifyContent="start"><Img src={Title} width="85px" /></Div>
+                                <Div width="260px">
+                                    <Div width="30%"><A href=''>커뮤니티</A></Div>
+                                    <Div width="30%"><A href=''>쇼핑</A></Div>
+                                    <Div width="40%"><A href=''>인테리어/생활</A></Div>
+                                </Div>
+                            </Div>
+                            <Div width="525px">
+                                <Input width="192px" height="43px" margin="0 25px 0 0" image={Search} padding="0 0 0 55px" placeholder='통합검색' backgroundPosition="18px center" backgroundSize="20px" />
+                                <Div width="125px">
+                                    <Div><Img src={Scrap} width="18px" /></Div>
+                                    <Div><Img src={Alarm} width="20px" /></Div>
+                                    <Div><Img src={Cart} width="23px" /></Div>
+                                </Div>
+                                <Div width="68px">
+                                    <Img src={Face} width="43px" />
+                                </Div>
+                                <Div width="113px">
+                                    <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" color='white'>
+                                        글쓰기
+                                        <Img src={Arrow} width="12px" margin="0 0 0 8px" />
+                                    </Button>
+                                </Div>
+                            </Div>
+                        </Div>
                     </Div>
-                    <Div width="6%">
-                        <Img src={Face} width="43px" />
+                ),
+                desktop: (
+                    <Div flexDirection="column" borderBottom="1px solid #dbdbdb" height="85px">
+                        <Div width="1136px" height="43px" >
+                            <Div justifyContent="start" width="10%"><Img src={Title} width="85px" /></Div>
+                            <Div width="23%">
+                                <Div width="30%"><A href=''>커뮤니티</A></Div>
+                                <Div width="30%"><A href=''>쇼핑</A></Div>
+                                <Div width="40%"><A href=''>인테리어/생활</A></Div>
+                            </Div>
+                            <Div justifyContent="end" width="40%">
+                                <Input width="365px" height="43px" margin="0 25px 0 0" image={Search} padding="0 0 0 55px" placeholder='통합검색' backgroundPosition="18px center" backgroundSize="20px" />
+                            </Div>
+                            <Div width="11%">
+                                <Div><Img src={Scrap} width="18px" /></Div>
+                                <Div><Img src={Alarm} width="20px" /></Div>
+                                <Div><Img src={Cart} width="23px" /></Div>
+                            </Div>
+                            <Div width="6%">
+                                <Img src={Face} width="43px" />
+                            </Div>
+                            <Div width="10%">
+                                <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" color='white'>
+                                    글쓰기
+                                    <Img src={Arrow} width="12px" margin="0 0 0 8px" />
+                                </Button>
+                            </Div>
+                        </Div>
                     </Div>
-                    <Div width="10%">
-                        <Button type='button' width="100px" height="43px" backgroundColor="#35C5F0" color='white'>
-                            글쓰기
-                            <Img src={Arrow} width="12px" margin="0 0 0 8px" />
-                        </Button>
-                    </Div>
-                </Div>
-            </Div>
+                )
+            }[device]}
+
         </Container>
     )
 }
@@ -51,7 +141,7 @@ export default Nav
 const Container = styled.div`
 display: flex;
 width: 100%;
-height: 85px;
+/* height: ${(props) => props.height || '85px'}; */
 justify-content: ${(props) => props.justifyContent || 'center'};
 align-items: ${(props) => props.alignItems || 'center'};
 margin: ${(props) => props.margin || ""};

@@ -2,24 +2,75 @@ import styled from 'styled-components'
 import ProfileCard from './ProfileCard'
 import Picture from './Picture'
 import Homecoming from './Homecoming'
+import { useCheckDeviceWidth } from '../Hooks/useCheckDeviceWidth'
 
 const ViewAll = () => {
 
+    const device = useCheckDeviceWidth()
+
     return (
         // 전체 컨테이너
+
         <Container>
-            <Div justifyContent="space-between" >
-                <Div flexDirection="column" width="285px" justifyContent="start">
-                    <Div height="31px" />
-                    <ProfileCard />
-                </Div>
-                <Div flexDirection="column" width="750px" justifyContent="start">
-                    <Div height="50px" />
-                    <Picture />
-                    <Div height="60px" />
-                    <Homecoming />
-                </Div>
-            </Div>
+            {{
+                mobile: (
+                    <Div flexDirection="column" justifyContent="space-between" >
+                        <Div flexDirection="column" width="1000px" justifyContent="start">
+                            <Div height="31px" />
+                            <ProfileCard />
+                        </Div>
+                        <Div flexDirection="column" width="750px" justifyContent="start">
+                            <Div height="50px" />
+                            <Picture />
+                            <Div height="60px" />
+                            <Homecoming />
+                        </Div>
+                    </Div>
+                ),
+                tablet: (
+                    <Div flexDirection="column" justifyContent="space-between" >
+                        <Div flexDirection="column" width="1000px" justifyContent="start">
+                            <Div height="31px" />
+                            <ProfileCard />
+                        </Div>
+                        <Div flexDirection="column" width="750px" justifyContent="start">
+                            <Div height="50px" />
+                            <Picture />
+                            <Div height="60px" />
+                            <Homecoming />
+                        </Div>
+                    </Div>
+                ),
+                laptop: (
+                    <Div justifyContent="space-between" >
+                        <Div flexDirection="column" width="285px" justifyContent="start">
+                            <Div height="31px" />
+                            <ProfileCard />
+                        </Div>
+                        <Div flexDirection="column" width="750px" justifyContent="start">
+                            <Div height="50px" />
+                            <Picture />
+                            <Div height="60px" />
+                            <Homecoming />
+                        </Div>
+                    </Div>
+                ),
+                desktop: (
+                    <Div justifyContent="space-between" >
+                        <Div flexDirection="column" width="285px" justifyContent="start">
+                            <Div height="31px" />
+                            <ProfileCard />
+                        </Div>
+                        <Div flexDirection="column" width="750px" justifyContent="start">
+                            <Div height="50px" />
+                            <Picture />
+                            <Div height="60px" />
+                            <Homecoming />
+                        </Div>
+                    </Div>
+                ),
+            }[device]}
+
         </Container>
     )
 }

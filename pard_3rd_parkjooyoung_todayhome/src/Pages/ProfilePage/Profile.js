@@ -10,6 +10,7 @@ import ViewAll from './ViewAll'
 
 const Profile = () => {
 
+
     return (
         // 전체 컨테이너
         <Container>

@@ -1,8 +1,23 @@
 import styled from 'styled-components'
 import Logo from '../../Assets/Logo.png'
-import { Link } from 'react-router-dom'
+import { Link, } from 'react-router-dom'
+import { useState } from 'react'
+import { useDataHandler } from '../Hooks/useDataHandler'
 
 const RegisterPage = () => {
+
+    const [curUserInfo, setCurUserInfo] = useState({})
+    console.log(curUserInfo)
+
+    const { registerHandler } = useDataHandler(curUserInfo)
+
+    const userInputHandler = (e) => {
+        setCurUserInfo({
+            ...curUserInfo,
+            [e.target.name]: e.target.value,
+        })
+    }
+
 
     return (
         // 전체 컨테이너
@@ -25,7 +40,7 @@ const RegisterPage = () => {
                                         <Div justifyContent="start" height="80%" margin="0 0 0.4vh 0">이메일</Div>
                                     </Div>
                                     <Div alignItems="end" height="55%">
-                                        <Input height="40px" placeholder='이메일' padding="0 0 0 20px"></Input>
+                                        <Input height="40px" placeholder='이메일' padding="0 0 0 20px" name='email' onChange={(e) => setCurUserInfo({ ...curUserInfo, email: e.target.value })}></Input>
                                     </Div>
                                 </Div>
                             </Div>
@@ -36,7 +51,7 @@ const RegisterPage = () => {
                                         <Div justifyContent="start" height="40%" margin="0 0 0.4vh 0">영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</Div>
                                     </Div>
                                     <Div alignItems="end" height="40%">
-                                        <Input height="40px" placeholder='비밀번호' padding="0 0 0 20px"></Input>
+                                        <Input height="40px" placeholder='비밀번호' padding="0 0 0 20px" name='password' onChange={userInputHandler}></Input>
                                     </Div>
                                 </Div>
                             </Div>
@@ -46,7 +61,7 @@ const RegisterPage = () => {
                                         <Div justifyContent="start" height="80%" margin="0 0 0.4vh 0">비밀번호 확인</Div>
                                     </Div>
                                     <Div alignItems="end" height="55%">
-                                        <Input height="40px" placeholder='비밀번호 확인' padding="0 0 0 20px"></Input>
+                                        <Input height="40px" placeholder='비밀번호 확인' padding="0 0 0 20px" name='passwordConfirm' onChange={userInputHandler}></Input>
                                     </Div>
                                 </Div>
                             </Div>
@@ -57,15 +72,13 @@ const RegisterPage = () => {
                                         <Div justifyContent="start" height="40%" margin="0 0 0.4vh 0">다른 유저와 겹치지 않도록 입력해주세요. {'(2~15자)'}</Div>
                                     </Div>
                                     <Div alignItems="end" height="40%">
-                                        <Input height="40px" placeholder='별명 (2~15자)' padding="0 0 0 20px"></Input>
+                                        <Input height="40px" placeholder='별명 (2~15자)' padding="0 0 0 20px" name='nickname' onChange={userInputHandler}></Input>
                                     </Div>
                                 </Div>
                             </Div>
                             <Div height="10%" alignItems="start">
                                 <Div height="50px" justifyContent="start">
-                                    <LoginLink to="/profile">
-                                        <Input type='button' value='회원가입하기' backgroundColor="#35C5F0" color="white" fontSize="17px" fontWeight="bold" ></Input>
-                                    </LoginLink>
+                                    <Input type='button' value='회원가입하기' backgroundColor="#35C5F0" color="white" fontSize="17px" fontWeight="bold" onClick={() => registerHandler(curUserInfo)} ></Input>
                                 </Div>
                             </Div>
                             <Div height="10%" >

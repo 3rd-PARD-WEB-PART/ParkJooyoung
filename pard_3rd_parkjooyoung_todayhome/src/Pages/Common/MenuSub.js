@@ -1,26 +1,28 @@
 import { useState } from 'react';
 import styled from 'styled-components'
+import { useCheckDeviceWidth } from '../Hooks/useCheckDeviceWidth';
 
 const MenuSub = (props) => {
 
     const [selectedMenuMain, setSelectedMenuMain] = useState(props.selectedMenuMain)
     const [selectedMenuSub, setSelectedMenuSub] = useState(props.selectedMenuSub)
-    console.log(selectedMenuSub)
+    const device = useCheckDeviceWidth()
+
     return (
         // 전체 컨테이너
-        <Container>
+        <Container device={device} >
             {
                 {
                     Profile: (
                         <Div flexDirection="column" borderBottom="1px solid #dbdbdb" >
                             <Div width="550px" height="23px" justifyContent="space-between" >
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "All"}>모두보기</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Image"}>사진</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Homecoming"}>집들이</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "KnowHow"}>노하우</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Q&A"}>질문과답변</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Scrap"}>스크랩북</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Like"}>좋아요</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "All"} device={device}>모두보기</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Image"} device={device}>사진</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Homecoming"} device={device}>집들이</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "KnowHow"} device={device}>노하우</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Q&A"} device={device}>질문과답변</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Scrap"} device={device}>스크랩북</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Like"} device={device}>좋아요</A></AutoWidthDiv>
                             </Div>
                         </Div>
                     ),
@@ -42,12 +44,12 @@ const MenuSub = (props) => {
                     Setting: (
                         <Div flexDirection="column" borderBottom="1px solid #dbdbdb" >
                             <Div width="602px" height="23px" justifyContent="space-between" >
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Edit"}>회원정보수정</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Alarm"}>알림 설정</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Hide"}>사용자 숨기기 설정</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Apply"}>전문가 신청</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "PW"}>비밀번호 변경</A></AutoWidthDiv>
-                                <AutoWidthDiv ><A selected={selectedMenuSub === "Code"}>추천 코드</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Edit"} device={device}>회원정보수정</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Alarm"} device={device}>알림 설정</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Hide"} device={device}>사용자 숨기기 설정</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Apply"} device={device}>전문가 신청</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "PW"} device={device}>비밀번호 변경</A></AutoWidthDiv>
+                                <AutoWidthDiv ><A selected={selectedMenuSub === "Code"} device={device}>추천 코드</A></AutoWidthDiv>
                             </Div>
                         </Div>
                     )
@@ -65,7 +67,7 @@ export default MenuSub
 const Container = styled.div`
 display: flex;
 width: 100%;
-height: 65px;
+height: ${(props) => props.device == "mobile" ? "55px" : "65px"};
 justify-content: ${(props) => props.justifyContent || 'center'};
 align-items: ${(props) => props.alignItems || 'center'};
 margin: ${(props) => props.margin || ""};
@@ -104,7 +106,7 @@ const AutoWidthDiv = styled.div`
 
 
 const A = styled.a`
-font-size: ${(props) => props.fontSize || "15px"};
+font-size: ${(props) => props.device == "mobile" ? "13px" : "15px"};
 font-weight: ${(props) => props.fontWeight || "bold"};
 color: ${(props) => props.selected ? "#35C5F0" : "black"};
 text-decoration: none;

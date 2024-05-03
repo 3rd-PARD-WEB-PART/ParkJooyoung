@@ -5,59 +5,212 @@ import Heart from '../../Assets/Heart.png'
 import HeartRed from '../../Assets/HeartRed.png'
 import Coupon from '../../Assets/Coupon.png'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { userInfoRecoil } from '../Atom/Atom'
+import { useNavigate } from 'react-router-dom'
+import { useCheckDeviceWidth } from '../Hooks/useCheckDeviceWidth'
 
 const ProfileCard = () => {
 
+    const [userInfo, setUserInfo] = useRecoilState(userInfoRecoil)
     const [liked, setLiked] = useState(false)
+    const navigator = useNavigate();
+    const device = useCheckDeviceWidth()
+
+
     const likeHandler = () => {
         setLiked(!liked)
     }
 
+    console.log(userInfo)
+
     return (
         // 전체 컨테이너
         <Container>
-            <Div flexDirection="column">
-                <Div height="38%"><Img src={Face} width="130px" /></Div>
-                <Div height="10%" fontSize="26px">박주영</Div>
-                <Div height="6%">
-                    <Div width="120px" justifyContent="space-between">
-                        <Div width="50px" justifyContent="space-between">
-                            <AutoWidthDiv>팔로워</AutoWidthDiv>
-                            <AutoWidthDiv>0</AutoWidthDiv>
+            {{
+                mobile: (
+                    <Div flexDirection="column" width="100vw" height="31vw">
+                        <Div justifyContent="start" height="185px">
+                            <Div height="38%" width="20vw"><Img src={userInfo.profileImage == "" ? Face : userInfo.profileImage} width="14vw" /></Div>
+                            <Div width="40vw" flexDirection="column" >
+                                <Div height="30%" justifyContent="start" fontSize="26px">{userInfo.nickname}</Div>
+                                <Div height="26%" justifyContent="start">
+                                    <Div width="120px" justifyContent="space-between">
+                                        <Div width="50px" justifyContent="space-between">
+                                            <AutoWidthDiv>팔로워</AutoWidthDiv>
+                                            <AutoWidthDiv>0</AutoWidthDiv>
+                                        </Div>
+                                        <Div width="50px" justifyContent="space-between">
+                                            <AutoWidthDiv>팔로잉</AutoWidthDiv>
+                                            <AutoWidthDiv>0</AutoWidthDiv>
+                                        </Div>
+                                    </Div>
+                                </Div>
+                                <Div height="26%" justifyContent="start">
+                                    <Button type='button' width="60px" height="35px" onClick={() => navigator("/edit")}>
+                                        설정
+                                    </Button>
+                                </Div>
+                            </Div>
+
                         </Div>
-                        <Div width="50px" justifyContent="space-between">
-                            <AutoWidthDiv>팔로잉</AutoWidthDiv>
-                            <AutoWidthDiv>0</AutoWidthDiv>
+                        <Div height="125px" >
+                            <Div width="85vw" >
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Scrap} width="23px" /></Div>
+                                    <Div height="35%" alignItems="end">스크랩북</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div Div height="40%"><Img src={liked === true ? HeartRed : Heart} width="30px" onClick={likeHandler} /></Div>
+                                    <Div height="35%" alignItems="end">좋아요</Div>
+                                    <Div height="25%">{liked === true ? "1" : "0"}</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Coupon} width="28px" /></Div>
+                                    <Div height="35%" alignItems="end">내 쿠폰</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                            </Div>
                         </Div>
                     </Div>
+                ),
+                tablet: (
+                    <Div flexDirection="column" width="90vw" height="31vw">
+                        <Div justifyContent="start" height="185px">
+                            <Div height="38%" width="20vw"><Img src={userInfo.profileImage == "" ? Face : userInfo.profileImage} width="14vw" /></Div>
+                            <Div width="40vw" flexDirection="column" >
+                                <Div height="30%" justifyContent="start" fontSize="26px">{userInfo.nickname}</Div>
+                                <Div height="16%" justifyContent="start">
+                                    <Div width="120px" justifyContent="space-between">
+                                        <Div width="50px" justifyContent="space-between">
+                                            <AutoWidthDiv>팔로워</AutoWidthDiv>
+                                            <AutoWidthDiv>0</AutoWidthDiv>
+                                        </Div>
+                                        <Div width="50px" justifyContent="space-between">
+                                            <AutoWidthDiv>팔로잉</AutoWidthDiv>
+                                            <AutoWidthDiv>0</AutoWidthDiv>
+                                        </Div>
+                                    </Div>
+                                </Div>
+                                <Div height="16%" justifyContent="start">
+                                    <Button type='button' width="60px" height="35px" onClick={() => navigator("/edit")}>
+                                        설정
+                                    </Button>
+                                </Div>
+                            </Div>
 
-                </Div>
-                <Div height="16%">
-                    <Button type='button' width="60px" height="35px">
-                        설정
-                    </Button>
-                </Div>
-                <Div height="30%" >
-                    <Div width="231px" borderTop="1px solid #EAEBEF">
-                        <Div flexDirection="column" height="77px">
-                            <Div height="40%"><Img src={Scrap} width="23px" /></Div>
-                            <Div height="35%" alignItems="end">스크랩북</Div>
-                            <Div height="25%">0</Div>
                         </Div>
-                        <Div flexDirection="column" height="77px">
-                            <Div Div height="40%"><Img src={liked === true ? HeartRed : Heart} width="30px" onClick={likeHandler} /></Div>
-                            <Div height="35%" alignItems="end">좋아요</Div>
-                            <Div height="25%">{liked === true ? "1" : "0"}</Div>
-                        </Div>
-                        <Div flexDirection="column" height="77px">
-                            <Div height="40%"><Img src={Coupon} width="28px" /></Div>
-                            <Div height="35%" alignItems="end">내 쿠폰</Div>
-                            <Div height="25%">0</Div>
+                        <Div height="125px" >
+                            <Div width="85vw" borderTop="1px solid #EAEBEF">
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Scrap} width="23px" /></Div>
+                                    <Div height="35%" alignItems="end">스크랩북</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div Div height="40%"><Img src={liked === true ? HeartRed : Heart} width="30px" onClick={likeHandler} /></Div>
+                                    <Div height="35%" alignItems="end">좋아요</Div>
+                                    <Div height="25%">{liked === true ? "1" : "0"}</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Coupon} width="28px" /></Div>
+                                    <Div height="35%" alignItems="end">내 쿠폰</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                            </Div>
                         </Div>
                     </Div>
+                ),
+                laptop: (
+                    <Div flexDirection="column" width="285px" height="460px">
+                        <Div height="38%"><Img src={userInfo.profileImage == "" ? Face : userInfo.profileImage} width="130px" /></Div>
+                        <Div height="10%" fontSize="26px">{userInfo.nickname}</Div>
+                        <Div height="6%">
+                            <Div width="120px" justifyContent="space-between">
+                                <Div width="50px" justifyContent="space-between">
+                                    <AutoWidthDiv>팔로워</AutoWidthDiv>
+                                    <AutoWidthDiv>0</AutoWidthDiv>
+                                </Div>
+                                <Div width="50px" justifyContent="space-between">
+                                    <AutoWidthDiv>팔로잉</AutoWidthDiv>
+                                    <AutoWidthDiv>0</AutoWidthDiv>
+                                </Div>
+                            </Div>
 
-                </Div>
-            </Div>
+                        </Div>
+                        <Div height="16%">
+                            <Button type='button' width="60px" height="35px" onClick={() => navigator("/edit")}>
+                                설정
+                            </Button>
+                        </Div>
+                        <Div height="30%" >
+                            <Div width="231px" borderTop="1px solid #EAEBEF">
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Scrap} width="23px" /></Div>
+                                    <Div height="35%" alignItems="end">스크랩북</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div Div height="40%"><Img src={liked === true ? HeartRed : Heart} width="30px" onClick={likeHandler} /></Div>
+                                    <Div height="35%" alignItems="end">좋아요</Div>
+                                    <Div height="25%">{liked === true ? "1" : "0"}</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Coupon} width="28px" /></Div>
+                                    <Div height="35%" alignItems="end">내 쿠폰</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                            </Div>
+                        </Div>
+                    </Div>
+                ),
+                desktop: (
+                    <Div flexDirection="column" width="285px" height="460px">
+                        <Div height="38%"><Img src={userInfo.profileImage == "" ? Face : userInfo.profileImage} width="130px" /></Div>
+                        <Div height="10%" fontSize="26px">{userInfo.nickname}</Div>
+                        <Div height="6%">
+                            <Div width="120px" justifyContent="space-between">
+                                <Div width="50px" justifyContent="space-between">
+                                    <AutoWidthDiv>팔로워</AutoWidthDiv>
+                                    <AutoWidthDiv>0</AutoWidthDiv>
+                                </Div>
+                                <Div width="50px" justifyContent="space-between">
+                                    <AutoWidthDiv>팔로잉</AutoWidthDiv>
+                                    <AutoWidthDiv>0</AutoWidthDiv>
+                                </Div>
+                            </Div>
+
+                        </Div>
+                        <Div height="16%">
+                            <Button type='button' width="60px" height="35px" onClick={() => navigator("/edit")}>
+                                설정
+                            </Button>
+                        </Div>
+                        <Div height="30%" >
+                            <Div width="231px" borderTop="1px solid #EAEBEF">
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Scrap} width="23px" /></Div>
+                                    <Div height="35%" alignItems="end">스크랩북</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div Div height="40%"><Img src={liked === true ? HeartRed : Heart} width="30px" onClick={likeHandler} /></Div>
+                                    <Div height="35%" alignItems="end">좋아요</Div>
+                                    <Div height="25%">{liked === true ? "1" : "0"}</Div>
+                                </Div>
+                                <Div flexDirection="column" height="77px">
+                                    <Div height="40%"><Img src={Coupon} width="28px" /></Div>
+                                    <Div height="35%" alignItems="end">내 쿠폰</Div>
+                                    <Div height="25%">0</Div>
+                                </Div>
+                            </Div>
+                        </Div>
+                    </Div>
+                ),
+
+            }[device]}
+
         </Container>
     )
 }
@@ -69,8 +222,8 @@ export default ProfileCard
 
 const Container = styled.div`
 display: flex;
-width: 285px;
-height: 460px;
+/* width: 285px; */
+/* height: 460px; */
 border: 1px solid #BCBDBF;
 `
 
@@ -86,7 +239,7 @@ justify-content: ${(props) => props.justifyContent || 'center'};
 align-items: ${(props) => props.alignItems || 'center'};
 align-content: ${(props) => props.alignContent || ''};
 background-color: ${(props) => props.backgroundColor || 'white'};
-border: ${(props) => props.border || '0px solid black'};
+/* border: ${(props) => props.border || '1px solid black'}; */
 border-top: ${(props) => props.borderTop || '0px solid black'};
 font-size: ${(props) => props.fontSize || "13px"};
 font-weight: ${(props) => props.fontWeight || "bold"};
