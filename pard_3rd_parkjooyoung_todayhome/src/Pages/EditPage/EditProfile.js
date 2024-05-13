@@ -1,14 +1,32 @@
 import styled from 'styled-components'
 import Profile from '../../Assets/Profile_Face.png'
 import { useDataHandler } from '../Hooks/useDataHandler'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { userInfoRecoil } from '../Atom/Atom'
+import { getUserData, patchUserData } from '../../API/AxiosAPI'
 
 const EditProfile = () => {
 
-    const [userInfo, setUserInfo] = useRecoilState(userInfoRecoil)
-    const [curUserInfo, setCurUserInfo] = useState(userInfo)
+    // const [userInfo, setUserInfo] = useRecoilState(userInfoRecoil)
+    // const [curUserInfo, setCurUserInfo] = useState(userInfo)
+    const [curUserInfo, setCurUserInfo] = useState({})
+
+    const getUser = async () => {
+        try {
+            const userData = await getUserData(1);
+            setCurUserInfo(userData)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
+
+
     console.log(curUserInfo)
 
     const { updateHandler } = useDataHandler(curUserInfo)

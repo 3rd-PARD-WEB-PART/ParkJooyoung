@@ -4,18 +4,34 @@ import Scrap from '../../Assets/Scrap.png'
 import Heart from '../../Assets/Heart.png'
 import HeartRed from '../../Assets/HeartRed.png'
 import Coupon from '../../Assets/Coupon.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { userInfoRecoil } from '../Atom/Atom'
 import { useNavigate } from 'react-router-dom'
 import { useCheckDeviceWidth } from '../Hooks/useCheckDeviceWidth'
+import { getUserData, patchUserData } from '../../API/AxiosAPI'
 
 const ProfileCard = () => {
 
-    const [userInfo, setUserInfo] = useRecoilState(userInfoRecoil)
+    // const [userInfo, setUserInfo] = useRecoilState(userInfoRecoil)
+    const [userInfo, setUserInfo] = useState({})
     const [liked, setLiked] = useState(false)
     const navigator = useNavigate();
     const device = useCheckDeviceWidth()
+
+    const getUser = async () => {
+        try {
+            const userData = await getUserData(1);
+            setUserInfo(userData)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
 
 
     const likeHandler = () => {
