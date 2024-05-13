@@ -2,6 +2,7 @@
 import { useRecoilState } from 'recoil'
 import { userInfoRecoil } from '../Atom/Atom'
 import { useNavigate } from 'react-router-dom'
+import { getUserData, patchUserData } from '../../API/AxiosAPI'
 
 
 export const useDataHandler = (curUserInfo) => {
@@ -34,16 +35,26 @@ export const useDataHandler = (curUserInfo) => {
         }
     }
 
-    const updateHandler = () => {
+    const updateHandler = async () => {
 
         if (!curUserInfo) {
             console.log("userInfo not provided")
             return;
         }
-        setUserInfo(curUserInfo)
-        navigator("/profile")
+        // setUserInfo(curUserInfo)
+        try {
+            const userData = await patchUserData(curUserInfo, 1);
+            navigator("/profile")
+        }
+        catch (error) {
+            console.log(error)
+        }
+
 
     }
+
+
+
 
     return { registerHandler, updateHandler }
 }
